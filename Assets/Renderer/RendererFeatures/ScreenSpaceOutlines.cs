@@ -27,6 +27,9 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature
         [Header("Normal Settings")]
         [Range(0.0f, 1.0f)]
         public float normalThreshold = 0.4f;
+        [Header("Normal Settings")]
+        [Range(0.0f, 1.0f)]
+        public float normalThreshold_far = 1f;
 
         [Header("Depth Normal Relation Settings")]
         [Range(0.0f, 2.0f)]
@@ -152,6 +155,7 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature
             screenSpaceOutlineMaterial.SetFloat("_RobertsCrossMultiplier", settings.robertsCrossMultiplier);
 
             screenSpaceOutlineMaterial.SetFloat("_NormalThreshold", settings.normalThreshold);
+            screenSpaceOutlineMaterial.SetFloat("_NormalThreshold_far", settings.normalThreshold_far);
 
             screenSpaceOutlineMaterial.SetFloat("_SteepAngleThreshold", settings.steepAngleThreshold);
             screenSpaceOutlineMaterial.SetFloat("_SteepAngleMultiplier", settings.steepAngleMultiplier);

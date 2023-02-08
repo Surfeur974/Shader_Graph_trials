@@ -77,6 +77,7 @@ MonoBehaviour:
     depthThreshold: 1.5
     robertsCrossMultiplier: 100
     normalThreshold: 0.4
+    normalThreshold_far: 1
     steepAngleThreshold: 0.2
     steepAngleMultiplier: 25
   viewSpaceNormalsTextureSettings:
