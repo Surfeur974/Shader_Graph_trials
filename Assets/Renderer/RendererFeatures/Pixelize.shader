@@ -3,7 +3,10 @@ Shader "Hidden/Pixelize"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white"
+        _MainTex ("Texture", 2D) = "white" {}
+        _Palette ("Palette", 2D) = "white" {}
+		_Fade("Fade", Range( 0 , 5)) = 1
+		_EnablePalette("EnablePalette", Integer) = 0
     }
 
     SubShader
@@ -34,12 +37,15 @@ Shader "Hidden/Pixelize"
         TEXTURE2D(_MainTex);
         float4 _MainTex_TexelSize;
         float4 _MainTex_ST;
+        TEXTURE2D(_Palette);
+		uniform float _Fade;
+		int _EnablePalette;
 
         //SAMPLER(sampler_MainTex);
         //Texture2D _MainTex;
         //SamplerState sampler_MainTex;
 
-        SamplerState sampler_point_clamp;
+        SamplerState SmpClampPoint;
         
         uniform float2 _BlockCount;
         uniform float2 _BlockSize;
@@ -50,8 +56,8 @@ Shader "Hidden/Pixelize"
         {
             Varyings OUT;
             OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
-            //OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
-            OUT.uv = IN.uv;
+            OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+            //OUT.uv = IN.uv;
             return OUT;
         }
 
@@ -67,10 +73,19 @@ Shader "Hidden/Pixelize"
                 float2 blockPos = floor(IN.uv * _BlockCount);
                 float2 blockCenter = blockPos * _BlockSize + _HalfBlockSize;
 
-                float4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_point_clamp, blockCenter);
-				//return float4(blockCenter,0,0);
+                float4 lowResTex = SAMPLE_TEXTURE2D(_MainTex, SmpClampPoint, blockCenter);
 
-                return tex;
+            if(_EnablePalette == 0)
+            {
+                return lowResTex;
+            }
+            
+
+                float colorMagnitude = (length(lowResTex.rgb)/3);
+                float samplePointForPalette = lerp(colorMagnitude, 0, (1 - _Fade));
+                
+                return SAMPLE_TEXTURE2D(_Palette, SmpClampPoint,samplePointForPalette);
+
             }
             ENDHLSL
         }
