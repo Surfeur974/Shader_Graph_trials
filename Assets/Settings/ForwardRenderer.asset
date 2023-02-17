@@ -17,7 +17,8 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: 7130227929938231506}
-  m_RendererFeatureMap: d280895386a8f362
+  - {fileID: 8233208603146968604}
+  m_RendererFeatureMap: d280895386a8f3621cde43689a3b4272
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c783501bf3f47809df58c7231b54, type: 3}
   m_Name: ScreenSpaceOutlines
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   renderPassEvent: 300
   outlineSettings:
     outlineColor: {r: 0, g: 0.48707196, b: 0.6226415, a: 1}
@@ -91,3 +92,19 @@ MonoBehaviour:
   outlinesOccluderLayerMask:
     serializedVersion: 2
     m_Bits: 55
+--- !u!114 &8233208603146968604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72014e2e71fb12341bb6084519131633, type: 3}
+  m_Name: PixelatedPass
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 300
+    screenHeight: 144
